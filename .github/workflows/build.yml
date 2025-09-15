@@ -1,0 +1,17 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run test
+        run: docker run -e RCLONE_COMMANDS_URL={{ secrets.RCLONE_COMMANDS_URL }} -e RCLONE_CONFIG_URL={{ secrets.RCLONE_CONFIG_URL }} -q {{ secrets.IMAGE_NAME }}
